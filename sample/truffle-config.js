@@ -12,7 +12,7 @@ module.exports = {
   networks: {
     development: {
       provider: new Provider(
-        ["<YOUR API KEY HERE>"],
+        ["<YOUR PRIVATE ETHEREUM KEYS FOR SIGNING HERE>"],
         MultiBaasDeploymentID
       ),
       network_id: "*",
