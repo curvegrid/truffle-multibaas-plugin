@@ -13,9 +13,7 @@ module.exports = {
     development: {
       provider: new Provider(
         ["<YOUR API KEY HERE>"],
-        MultiBaasDeploymentID,
-        0,
-        1
+        MultiBaasDeploymentID
       ),
       network_id: "*",
     },
