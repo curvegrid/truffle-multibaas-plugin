@@ -159,4 +159,4 @@ Copyright (c) 2020 Curvegrid Inc.
 
 ## Contributing
 
-[Pull requests](https://github.com/curvegrid/truffle-multibaas-plugin/compare) welcome!
+[Pull requests](https://github.com/curvegrid/truffle-multibaas-plugin/compare) welcome.
