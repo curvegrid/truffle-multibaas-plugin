@@ -136,7 +136,7 @@ export class Deployer {
         );
         if (mbContract.bin !== bytecode)
           throw new Error(
-            `MultiBaas: A different "${mbContract.contractName} ${mbContract.version}" has already been deployed ${mbContract.bin} ${bytecode}`
+            `MultiBaas: A different "${mbContract.contractName} ${mbContract.version}" has already been deployed.`
           );
         console.log(
           `MultiBaas: Contract "${mbContract.contractName} ${mbContract.version}" already created. Skipping creation.`
