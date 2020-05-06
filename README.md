@@ -70,6 +70,9 @@ module.exports = {
 
 ### Writing a Migration File
 
+See the **sample** folder for a complete [Truffle Quickstart Repo](https://www.trufflesuite.com/docs/truffle/quickstart)
+connected to MultiBaas.
+
 The quick-start drop-in will be from
 
 ```js
