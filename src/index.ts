@@ -289,13 +289,13 @@ export class Deployer {
     for (const c of address.contracts) {
       if (c.label === contract.label && c.version === contract.version) {
         console.log(
-          `MultiBaas: Contract "${contract.label} ${contract.version} is already linked to address "${address.label}""`
+          `MultiBaas: Contract "${contract.label} ${contract.version}" is already linked to address "${address.label}"`
         );
         return address;
       }
     }
     console.log(
-      `MultiBaas: Linking contract "${contract.label} ${contract.version} to address "${address.label}""`
+      `MultiBaas: Linking contract "${contract.label} ${contract.version}" to address "${address.label}"`
     );
     return this.request(
       `${chain}/addresses/${address.label}/contracts/${contract.label}/${contract.version}`,
