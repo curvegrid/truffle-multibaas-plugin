@@ -81,7 +81,7 @@ export class Deployer {
     let host =
       this.config.deploymentID === "development"
         ? "http://localhost:8080/api/v0"
-        : `https://${this.config.deploymentID}.multibaas.com/api/v1`;
+        : `https://${this.config.deploymentID}.multibaas.com/api/v0`;
     const response = await axios(`${host}${path}`, {
       // Augment the config with some options
       ...config,
