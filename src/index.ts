@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Curvegrid Inc.
 
 import TruffleContract from "@truffle/contract";
-import getConfig, { Config } from "./config";
+import getConfig, { Config, getHost } from "./config";
 import axios, { AxiosRequestConfig } from "axios";
 import {
   MultiBaasAPIResponse,
@@ -9,8 +9,10 @@ import {
   MultiBaasAddress,
   MultiBaasContract,
 } from "./multibaasApi";
+import Provider from "./provider";
 
-export { MultiBaasAddress, MultiBaasContract };
+// Re-exports
+export { Provider, MultiBaasAddress, MultiBaasContract };
 
 type Contract = TruffleContract.Contract;
 
@@ -65,15 +67,6 @@ export class Deployer {
     private network: string
   ) {
     this.config = getConfig();
-  }
-
-  /**
-   * Returns the host.
-   */
-  private get host(): string {
-    return this.config.deploymentID === "development"
-      ? "http://localhost:8080"
-      : `https://${this.config.deploymentID}.multibaas.com`;
   }
 
   /**
@@ -379,9 +372,10 @@ export class Deployer {
     const linkedAddress = await this.linkContractToAddress(mbContract, address);
 
     // Final message.
+    const host = getHost(this.config.deploymentID);
     console.log(`MultiBaas: Contract "${mbContract.label} ${mbContract.version}" has successfully been deployed.
-- Visit the contract management page: ${this.host}/contracts/${mbContract.label}?version=${mbContract.version}
-- Visit the instance management page: ${this.host}/contracts/${mbContract.label}/${linkedAddress.label}`);
+- Visit the contract management page: ${host}/contracts/${mbContract.label}?version=${mbContract.version}
+- Visit the instance management page: ${host}/contracts/${mbContract.label}/${linkedAddress.label}`);
 
     return [mbContract, linkedAddress];
   }

@@ -74,3 +74,13 @@ export default function getConfig(): Config {
   }
   return { allowUpdateAddress: false, ...mbConfig, apiKey };
 }
+
+/**
+ * Gets the host from the deployment ID.
+ * @param deploymentID The deployment ID in the config.
+ */
+export function getHost(deploymentID: string): string {
+  return deploymentID === "development"
+    ? "http://localhost:8080"
+    : `https://${deploymentID}.multibaas.com`;
+}
