@@ -2,8 +2,6 @@
 
 Integrate MultiBaas into your [Truffle Suite](https://github.com/trufflesuite/truffle) or [Etherlime](https://github.com/LimeChain/etherlime) workflow!
 
-## Overview
-
 ![MultiBaas Truffle and Etherlime plugin architecture](truffle-multibaas-plugin-architecture.png)
 
 MultiBaas is blockchain middleware that makes it fast and easy to develop, deploy, and operate on the Ethereum and OmiseGO blockchain platforms. This plugin makes it easy to deploy contracts to MultiBaas from within your existing Truffle and Etherlime workflows. Your DApp can then use the MultiBaas REST API to interact with smart contracts.
