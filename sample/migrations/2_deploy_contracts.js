@@ -9,8 +9,8 @@ module.exports = async function (_deployer, network) {
 
   await deployer.deploy(ConvertLib, { overwrite: false });
   await deployer.link(ConvertLib, MetaCoin);
-  await deployer.deployWithOptions(MetaCoin, {
+  await deployer.deployWithOptions({
     contractVersion: "2.0",
     addressLabel: "metacoin",
-  });
+  }, MetaCoin);
 };
