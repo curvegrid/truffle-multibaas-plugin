@@ -1,12 +1,20 @@
 # truffle-multibaas-plugin
 
-Integrate MultiBaas into Truffle suite's workflow!
+Integrate MultiBaas into your [Truffle Suite](https://github.com/trufflesuite/truffle) or [Etherlime](https://github.com/LimeChain/etherlime) workflow!
+
+## Overview
+
+![MultiBaas Truffle and Etherlime plugin architecture](truffle-multibaas-plugin-architecture.png)
+
+MultiBaas is blockchain middleware that makes it fast and easy to develop, deploy, and operate on the Ethereum and OmiseGO blockchain platforms. This plugin makes it easy to deploy contracts to MultiBaas from within your existing Truffle and Etherlime workflows. Your DApp can then use the MultiBaas REST API to interact with smart contracts.
+
+For more information on MultiBaas, see our [introductory walkthrough](https://www.curvegrid.com/blog/2020-04-06-multibaas-intro/) and our [developer documentation](https://www.curvegrid.com/docs/).
 
 ## Usage
 
 ### Installation
 
-On your Truffle workspace, set up a `package.json` file (if not yet added) with
+On your Truffle or Etherlime workspace, set up a `package.json` file (if not yet added) with
 
 ```bash
 npm init
@@ -32,13 +40,13 @@ yarn add truffle-multibaas-plugin
 
 ### Configuration
 
-First, there are two API keys you need to prepare in your environment variables:
+There are two API keys you need to prepare in your environment variables:
 
 - `MB_PLUGIN_WEB3_KEY`: This comes from `Account > Connecting to Geth` from the MultiBaas dashboard.
 - `MB_PLUGIN_API_KEY`: The API key, you can create one in `Account > API Keys` from the MultiBaas dashboard.
   An alternative to using this environment variable is to write a `mb_plugin_api_key` file.
 
-First, some stuff to add to your `truffle-config.js`:
+Update your `truffle-config.js` as follows:
 
 ```js
 const { Provider } = require("truffle-multibaas-plugin");
@@ -51,7 +59,7 @@ module.exports = {
     development: {
       // See https://github.com/trufflesuite/truffle/tree/develop/packages/hdwallet-provider
       // for options other than the Deployment ID.
-      provider: new Provider("YOUR PRIVATE KEYS", MultiBaasDeploymentID),
+      provider: new Provider("<YOUR PRIVATE KEYS PRIVATE KEYS FOR SIGNING>", MultiBaasDeploymentID),
       networks: "*", // any network
     },
   },
@@ -148,4 +156,7 @@ interface DeployOptions {
 ## Copyright
 
 Copyright (c) 2020 Curvegrid Inc.
->>>>>>> 0a35eca... Add README
+
+## Contributing
+
+[Pull requests](https://github.com/curvegrid/truffle-multibaas-plugin/compare) welcome!
