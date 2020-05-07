@@ -47,6 +47,35 @@ There are two API keys you need to prepare in your environment variables:
 Update your `truffle-config.js` as follows:
 
 ```js
+const { HDWalletProvider } = require("@truffle/hdwallet-provider");
+
+const MultiBaasDeploymentID = "<YOUR DEPLOYMENT ID>";
+
+module.exports = {
+  networks: {
+    // This can be any name, not just "development". However, this is the default network name for Truffle.
+    development: {
+      // See https://github.com/trufflesuite/truffle/tree/develop/packages/hdwallet-provider
+      provider: new HDWalletProvider("<YOUR PRIVATE KEY FOR SIGNING>", "http://ropsten.node-provider.example.com:8545"),
+      networks: "*", // any network
+    },
+  },
+  // other truffle settings
+
+  // ADD THIS SECTION
+  multibaasDeployer: {
+    apiKeySource: "env", // specify "file" if you have a mb_plugin_api_key instead of an environment variable.
+    deploymentID: MultiBaasDeploymentID,
+    // Choose the list of networks we can allow updating address for a label.
+    // A definitive true/false also works, it will allow/block the action for all networks.
+    allowUpdateAddress: ["development"],
+  },
+};
+```
+
+For cases where MultiBaas is proxying the connection to the blockchain, for example with the Curvegrid Test Network (Curvenet), use the `truffle-multibaas-plugin` network provider directly in `truffle-config.js`:
+
+```js
 const { Provider } = require("truffle-multibaas-plugin");
 
 const MultiBaasDeploymentID = "<YOUR DEPLOYMENT ID>";
@@ -57,7 +86,7 @@ module.exports = {
     development: {
       // See https://github.com/trufflesuite/truffle/tree/develop/packages/hdwallet-provider
       // for options other than the Deployment ID.
-      provider: new Provider("<YOUR PRIVATE KEYS PRIVATE KEYS FOR SIGNING>", MultiBaasDeploymentID),
+      provider: new Provider("<YOUR PRIVATE KEY FOR SIGNING>", MultiBaasDeploymentID),
       networks: "*", // any network
     },
   },
