@@ -6,7 +6,7 @@ import { getHost, getConfig } from "./config";
 /**
  * The MultiBaas provider.
  *
- * You need the `MB_PLUGIN_WEB3_KEY` environment variable set.
+ * You need the `MB_PLUGIN_API_KEY` environment variable set, or a `mb_plugin_api_file` present.
  */
 export default class Provider extends provider {
   /**
