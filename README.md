@@ -38,11 +38,7 @@ yarn add truffle-multibaas-plugin
 
 ### Configuration
 
-There are two API keys you need to prepare in your environment variables:
-
-- `MB_PLUGIN_WEB3_KEY`: This comes from `Account > Connecting to Geth` from the MultiBaas dashboard.
-- `MB_PLUGIN_API_KEY`: The API key, you can create one in `Account > API Keys` from the MultiBaas dashboard.
-  An alternative to using this environment variable is to write a `mb_plugin_api_key` file.
+In order to connect with MultiBaas, you must create a Truffle API key and provide it via the `MB_PLUGIN_API_KEY` environment variable or a `mb_plugin_api_key` file. This API key can be created in your MultiBaas deployment via the `Account > API Keys` menu item.
 
 Update your `truffle-config.js` as follows:
 
