@@ -1,14 +1,12 @@
 // Copyright (c) 2020 Curvegrid Inc.
 
 import provider from "@truffle/hdwallet-provider";
-import { getHost } from "./config";
-
-const Web3APIEnvKey = "MB_PLUGIN_WEB3_KEY";
+import { getHost, getConfig } from "./config";
 
 /**
  * The MultiBaas provider.
  *
- * You need the `MB_PLUGIN_WEB3_KEY` environment variable set.
+ * You need the `MB_PLUGIN_API_KEY` environment variable set.
  */
 export default class Provider extends provider {
   /**
@@ -28,7 +26,7 @@ export default class Provider extends provider {
   ) {
     super(
       mnemonic,
-      `${getHost(deploymentID)}/web3/${process.env[Web3APIEnvKey]}`,
+      `${getHost(deploymentID)}/web3/${getConfig().apiKey}`,
       addressIndex,
       numAddresses,
       shareNonce,
