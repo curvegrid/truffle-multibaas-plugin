@@ -44,6 +44,13 @@ There are two API keys you need to prepare in your environment variables:
 - `MB_PLUGIN_API_KEY`: The API key, you can create one in `Account > API Keys` from the MultiBaas dashboard.
   An alternative to using this environment variable is to write a `mb_plugin_api_key` file.
 
+For example, in the terminal where you will run `truffle deploy <network>`, you would first need to execute the following two commands
+```sh
+export MB_PLUGIN_WEB3_KEY=<MultiBaas API Key with Web3 permissions>
+
+export MB_PLUGIN_API_KEY=<MultiBaas API Key with Blockchain Endpoint permissions>
+```
+
 Update your `truffle-config.js` as follows:
 
 ```js
