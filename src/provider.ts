@@ -6,7 +6,8 @@ import { getHost, getConfig } from "./config";
 /**
  * The MultiBaas provider.
  *
- * You need the `MB_PLUGIN_API_KEY` environment variable set.
+ * Your API key must be set either via the `MB_PLUGIN_API_KEY` environment variable,
+ * or the `mb_plugin_api_key` file.
  */
 export default class Provider extends provider {
   /**
