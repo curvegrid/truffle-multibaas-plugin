@@ -1,6 +1,6 @@
 {
   "name": "truffle-multibaas-plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A helper plugin for integrating MultiBaas into Truffle suite.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/curvegrid/truffle-multibaas-plugin",
   "bugs": {
-    "url" : "https://github.com/curvegrid/truffle-multibaas-plugin/issues"
+    "url": "https://github.com/curvegrid/truffle-multibaas-plugin/issues"
   },
   "license": "MIT",
   "devDependencies": {
