@@ -23,7 +23,7 @@ const chain = "/chains/ethereum";
  * The interface to Truffle's default deployer.
  */
 interface TruffleDeployer {
-  deploy<T extends any[]>(contract: Contract, ...args: T): Promise<void>;
+  deploy<T extends any[]>(contract: Contract, ...args: T): Promise<unknown>;
   link(lib: Contract, destinations: Contract | Contract[]): Promise<void>;
   then<T>(fn: () => T | Promise<T>): Promise<T>;
 }
@@ -321,6 +321,8 @@ export class Deployer {
    * Deploy a contract. Takes potentially some arguments and an ending `DeployOptions` object.
    * If a DeployOptions object is included, it **must** contain the `overwrite` property.
    *
+   * Returns `[the MultiBaas contract object, the MultiBaas address object, the Truffle Deployed Contract object]`.
+   *
    * This is provided for drop-in compability with Truffle's default deployer. The final object might
    * be confused, if one of the arguments passed to the Contract constructor is an object containing one
    * of the `DeployOptions` key.
@@ -331,7 +333,7 @@ export class Deployer {
   async deploy<T extends any[]>(
     contract: Contract,
     ...args: T
-  ): Promise<[MultiBaasContract, MultiBaasAddress]> {
+  ): Promise<[MultiBaasContract, MultiBaasAddress, unknown]> {
     if (
       args.length === 0 ||
       typeof args[args.length - 1] !== "object" ||
@@ -350,16 +352,17 @@ export class Deployer {
     opts: Partial<DeployOptions>,
     contract: Contract,
     ...args: T
-  ): Promise<[MultiBaasContract, MultiBaasAddress]> {
+  ): Promise<[MultiBaasContract, MultiBaasAddress, unknown]> {
     const {
       contractLabel,
       contractVersion,
       addressLabel,
       ...truffleOpts
     } = opts;
-    if (Object.keys(truffleOpts).length === 0)
-      await this.truffleDeployer.deploy(contract, ...args);
-    else await this.truffleDeployer.deploy(contract, ...args, truffleOpts);
+    const deployedContract =
+      Object.keys(truffleOpts).length === 0
+        ? await this.truffleDeployer.deploy(contract, ...args)
+        : await this.truffleDeployer.deploy(contract, ...args, truffleOpts);
 
     // Create a MultiBaas contract
     const mbContract = await this.createMultiBaasContract(contract, opts);
@@ -377,7 +380,7 @@ export class Deployer {
 - Visit the contract management page: ${host}/contracts/${mbContract.label}?version=${mbContract.version}
 - Visit the instance management page: ${host}/contracts/${mbContract.label}/${linkedAddress.label}`);
 
-    return [mbContract, linkedAddress];
+    return [mbContract, linkedAddress, deployedContract];
   }
 
   async link(

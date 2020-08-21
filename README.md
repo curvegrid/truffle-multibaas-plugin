@@ -137,8 +137,11 @@ module.exports = function(_deployer, network) {
   await deployer.setup();
 
   // Continue as normal
-  await deployer.deploy(A);
+  const [mbContract, mbAddress, truffleContract] = await deployer.deploy(A);
   await deployer.deploy(B);
+
+  // Call smart contract functions
+  await truffleContract.transfer(/* ... */);
   // ...
 }
 ```
