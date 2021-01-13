@@ -1,6 +1,6 @@
 {
   "name": "truffle-multibaas-plugin",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A helper plugin for integrating MultiBaas into Truffle suite.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
