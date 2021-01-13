@@ -54,7 +54,7 @@ export MB_PLUGIN_API_KEY=<MultiBaas API Key with Blockchain Endpoint permissions
 Update your `truffle-config.js` as follows:
 
 ```js
-const { HDWalletProvider } = require("@truffle/hdwallet-provider");
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 const MultiBaasDeploymentID = "<YOUR DEPLOYMENT ID>";
 
@@ -118,7 +118,7 @@ connected to MultiBaas.
 The quick-start drop-in will be from
 
 ```js
-module.exports = function(deployer, network) {
+module.exports = async function(deployer, network) {
   // use the deployer
   await deployer.deploy(A);
   await deployer.deploy(B);
@@ -132,7 +132,7 @@ to
 // Import the Deployer wrapper
 const { Deployer } = require("truffle-multibaas-plugin");
 
-module.exports = function(_deployer, network) {
+module.exports = async function(_deployer, network) {
   const deployer = new Deployer(_deployer, network);
   await deployer.setup();
 
