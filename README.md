@@ -64,7 +64,7 @@ module.exports = {
     development: {
       // See https://github.com/trufflesuite/truffle/tree/develop/packages/hdwallet-provider
       provider: new HDWalletProvider("<YOUR PRIVATE KEY FOR SIGNING>", "http://ropsten.node-provider.example.com:8545"),
-      networks: "*", // any network
+      network_id: 3,
     },
   },
   // other truffle settings
@@ -94,7 +94,7 @@ module.exports = {
       // See https://github.com/trufflesuite/truffle/tree/develop/packages/hdwallet-provider
       // for options other than the Deployment ID.
       provider: new Provider("<YOUR PRIVATE KEY FOR SIGNING>", MultiBaasDeploymentID),
-      networks: "*", // any network
+      network_id: 2017072401,
     },
   },
   // other truffle settings
