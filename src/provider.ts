@@ -27,6 +27,7 @@ export default class Provider extends provider {
     walletHdpath?: string
   ) {
     super(
+      // @ts-ignore
       mnemonic,
       `${getHost(deploymentID)}/web3/${process.env[Web3APIEnvKey]}`,
       addressIndex,
