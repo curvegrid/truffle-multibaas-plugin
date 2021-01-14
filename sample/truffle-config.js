@@ -15,7 +15,7 @@ module.exports = {
         ["<YOUR PRIVATE ETHEREUM KEYS FOR SIGNING HERE>"],
         MultiBaasDeploymentID
       ),
-      network_id: "*",
+      network_id: "<ETHEREUM NETWORK ID>",
     },
   },
   //
