@@ -80,6 +80,8 @@ module.exports = {
 };
 ```
 
+_Note that your MultiBaas deployment (`[MultiBaasDeploymentID].multibaas.com`) must be using `the same network and network_id` with HDWalletProvider settings above_
+
 For cases where MultiBaas is proxying the connection to the blockchain, for example with the Curvegrid Test Network (Curvenet), use the `truffle-multibaas-plugin` network provider directly in `truffle-config.js`:
 
 ```js
@@ -109,6 +111,8 @@ module.exports = {
   },
 };
 ```
+
+_Note that if you set MultiBaasDeploymentID to `development`, a host of MultiBaas APIs will be `http://localhost:8080` not `https://[MultiBaasDeploymentID].multibaas.com`_
 
 ### Writing a Migration File
 
