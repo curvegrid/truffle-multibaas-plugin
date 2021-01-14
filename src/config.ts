@@ -55,7 +55,7 @@ function isFileConfig(o: any): o is FileConfig {
 /**
  * Parses and returns the config struct.
  */
-export default function getConfig(): Config {
+export function getConfig(): Config {
   const truffleConfig: any = TruffleConfig.detect();
   const mbConfig: any = truffleConfig[configKey];
   if (!isFileConfig(mbConfig))
