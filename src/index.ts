@@ -375,7 +375,7 @@ export class Deployer {
     const linkedAddress = await this.linkContractToAddress(mbContract, address);
 
     // Final message.
-    const host = getHost(this.config.deploymentID);
+    const host = getHost(this.config.deploymentID, this.config.deploymentPort);
     console.log(`MultiBaas: Contract "${mbContract.label} ${mbContract.version}" has successfully been deployed.
 - Visit the contract management page: ${host}/contracts/${mbContract.label}?version=${mbContract.version}
 - Visit the instance management page: ${host}/contracts/${mbContract.label}/${linkedAddress.label}`);
