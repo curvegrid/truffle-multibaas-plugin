@@ -21,7 +21,6 @@ export default class Provider extends provider {
   constructor(
     mnemonic: string | string[],
     deploymentID: string,
-    deploymentPort: number | string,
     addressIndex?: number,
     numAddresses?: number,
     shareNonce?: boolean,
@@ -30,7 +29,7 @@ export default class Provider extends provider {
     super(
       // @ts-ignore
       mnemonic,
-      `${getHost(deploymentID, deploymentPort)}/web3/${process.env[Web3APIEnvKey]}`,
+      `${getHost(deploymentID)}/web3/${process.env[Web3APIEnvKey]}`,
       addressIndex,
       numAddresses,
       shareNonce,
