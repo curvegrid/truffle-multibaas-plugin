@@ -11,10 +11,10 @@ const APIKeyFileName = "mb_plugin_api_file";
 
 /**
  * Holds the configuration to the plugin.
- *
  */
 interface BaseConfig {
   deploymentID: string;
+  deploymentPort: number | string;
   /**
    * Whether we can update addresses for labels. Takes a definitive boolean or a list of allowed networks.
    * This is a fairly destructive operation, so the default option is "false".
@@ -79,8 +79,9 @@ export default function getConfig(): Config {
  * Gets the host from the deployment ID.
  * @param deploymentID The deployment ID in the config.
  */
-export function getHost(deploymentID: string): string {
+export function getHost(deploymentID: string, deploymentPort: number | string): string {
+  const port = deploymentPort !== undefined ? `:${deploymentPort}` : "";
   return deploymentID === "development"
-    ? "http://localhost:8080"
-    : `https://${deploymentID}.multibaas.com`;
+    ? `http://localhost${port || ':8080'}`
+    : `https://${deploymentID}.multibaas.com${port}`;
 }
