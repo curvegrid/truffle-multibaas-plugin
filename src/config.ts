@@ -80,7 +80,6 @@ export default function getConfig(): Config {
  */
 export function getHost(deploymentID: string): string {
   const re = /^http.*:\/\/[a-zA-Z0-9\-._]+:[0-9]+/;
-  console.log(deploymentID);
   if (re.test(deploymentID)) {
     return deploymentID;
   }
