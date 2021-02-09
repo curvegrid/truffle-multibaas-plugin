@@ -86,6 +86,7 @@ For cases where MultiBaas is proxying the connection to the blockchain, for exam
 const { Provider } = require("truffle-multibaas-plugin");
 
 const MultiBaasDeploymentID = "<YOUR DEPLOYMENT ID>";
+const MultiBaasDeploymentPort = "<YOUR DEPLOYMENT PORT>"; // Optional if you want to use a different port.
 
 module.exports = {
   networks: {
@@ -93,7 +94,11 @@ module.exports = {
     development: {
       // See https://github.com/trufflesuite/truffle/tree/develop/packages/hdwallet-provider
       // for options other than the Deployment ID.
-      provider: new Provider("<YOUR PRIVATE KEY FOR SIGNING>", MultiBaasDeploymentID),
+      provider: new Provider(
+        "<YOUR PRIVATE KEY FOR SIGNING>",
+        MultiBaasDeploymentID,
+        MultiBaasDeploymentPort, // Optional if you want to use a different port.
+      ),
       network_id: 2017072401,
     },
   },
@@ -103,6 +108,7 @@ module.exports = {
   multibaasDeployer: {
     apiKeySource: "env", // specify "file" if you have a mb_plugin_api_key instead of an environment variable.
     deploymentID: MultiBaasDeploymentID,
+    deploymentPort: MultiBaasDeploymentPort, // Optional if you want to use a different port.
     // Choose the list of networks we can allow updating address for a label.
     // A definitive true/false also works, it will allow/block the action for all networks.
     allowUpdateAddress: ["development"],
