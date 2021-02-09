@@ -1,7 +1,6 @@
 const { Provider } = require("truffle-multibaas-plugin");
 
 const MultiBaasDeploymentID = "<YOUR DEPLOYMENT ID HERE>";
-const MultiBaasDeploymentPort = "<YOUR DEPLOYMENT PORT>"; // Optional if you want to use a different port.
 
 module.exports = {
   // Uncommenting the defaults below
@@ -14,8 +13,7 @@ module.exports = {
     development: {
       provider: new Provider(
         ["<YOUR PRIVATE ETHEREUM KEYS FOR SIGNING HERE>"],
-        MultiBaasDeploymentID,
-        MultiBaasDeploymentPort, // Optional if you want to use a different port.
+        MultiBaasDeploymentID
       ),
       network_id: "*",
     },
@@ -24,7 +22,6 @@ module.exports = {
   multibaasDeployer: {
     apiKeySource: "env",
     deploymentID: MultiBaasDeploymentID,
-    deploymentPort: MultiBaasDeploymentPort, // Optional if you want to use a different port.
     allowUpdateAddress: ["development"],
   },
 };
