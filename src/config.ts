@@ -85,6 +85,6 @@ export function getHost(deploymentID: string): string {
   }
 
   return deploymentID === "development"
-    ? 'http://localhost:8080'
+    ? "http://localhost:8080"
     : `https://${deploymentID}.multibaas.com`;
 }
