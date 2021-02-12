@@ -5,6 +5,14 @@ import { getHost } from "./config";
 
 const Web3APIEnvKey = "MB_PLUGIN_WEB3_KEY";
 
+interface Options {
+  addressIndex?: number;
+  numAddresses?: number;
+  shareNonce?: boolean;
+  walletHdpath?: string;
+  insecureOk?: boolean;
+}
+
 /**
  * The MultiBaas provider.
  *
@@ -21,19 +29,16 @@ export default class Provider extends provider {
   constructor(
     mnemonic: string | string[],
     deploymentID: string,
-    addressIndex?: number,
-    numAddresses?: number,
-    shareNonce?: boolean,
-    walletHdpath?: string
+    options: Options = { insecureOk: false },
   ) {
     super(
       // @ts-ignore
       mnemonic,
-      `${getHost(deploymentID)}/web3/${process.env[Web3APIEnvKey]}`,
-      addressIndex,
-      numAddresses,
-      shareNonce,
-      walletHdpath
+      `${getHost(deploymentID, options.insecureOk)}/web3/${process.env[Web3APIEnvKey]}`,
+      options.addressIndex,
+      options.numAddresses,
+      options.shareNonce,
+      options.walletHdpath,
     );
   }
 }
