@@ -2,6 +2,7 @@
 import TruffleConfig from "@truffle/config";
 import { readFileSync } from "fs";
 import path from "path";
+import isURL from "validator/lib/isURL";
 
 // The deployer's key in the truffle config.
 const configKey = "multibaasDeployer";
@@ -14,6 +15,7 @@ const APIKeyFileName = "mb_plugin_api_file";
  */
 interface BaseConfig {
   deploymentID: string;
+  insecureOk?: boolean;
   /**
    * Whether we can update addresses for labels. Takes a definitive boolean or a list of allowed networks.
    * This is a fairly destructive operation, so the default option is "false".
@@ -78,9 +80,20 @@ export default function getConfig(): Config {
  * Gets the host from the deployment ID.
  * @param deploymentID The deployment ID in the config.
  */
-export function getHost(deploymentID: string): string {
-  const re = /^http.*:\/\/[a-zA-Z0-9\-._]+:[0-9]+/;
-  if (re.test(deploymentID)) {
+export function getHost(deploymentID: string, insecureOk: boolean = false): string {
+  const validatorOptions = {
+    protocols: ["https"],
+    require_protocol: true,
+    require_tld: true,
+  };
+
+  if (insecureOk) {
+    // To support localhost
+    validatorOptions.require_tld = false;
+    validatorOptions.protocols.push("http");
+  }
+
+  if (isURL(deploymentID, validatorOptions)) {
     return deploymentID;
   }
 
