@@ -11,6 +11,7 @@ interface Options {
   shareNonce?: boolean;
   walletHdpath?: string;
   insecureOk?: boolean;
+  apiKey?: string;
 }
 
 /**
@@ -31,10 +32,12 @@ export default class Provider extends provider {
     deploymentID: string,
     options: Options = { insecureOk: false },
   ) {
+    const apiKey = options.apiKey || process.env[Web3APIEnvKey];
+
     super(
       // @ts-ignore
       mnemonic,
-      `${getHost(deploymentID, options.insecureOk)}/web3/${process.env[Web3APIEnvKey]}`,
+      `${getHost(deploymentID, options.insecureOk)}/web3/${apiKey}`,
       options.addressIndex,
       options.numAddresses,
       options.shareNonce,
