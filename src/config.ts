@@ -41,7 +41,7 @@ export interface Config extends BaseConfig {
 // Checks whether an object is a FileConfig.
 function isFileConfig(o: any): o is FileConfig {
   if (typeof o !== "object") return false;
-  if (!(o.apiKeySource === "env" || o.apiKeySource === "file")) return false;
+  if (!(o.apiKeySource === "env" || o.apiKeySource === "file" || typeof o.apiKeySource === "string")) return false;
   if (typeof o.deploymentID !== "string") return false;
   if ("allowUpdateAddress" in o) {
     const value = o.allowUpdateAddress;
@@ -70,8 +70,10 @@ export default function getConfig(): Config {
       throw new Error(`Environment variable ${APIKeyEnvKey} not found`);
     }
     apiKey = env;
-  } else {
+  } else if (mbConfig.apiKeySource === "file") {
     apiKey = readFileSync(path.join(process.cwd(), APIKeyFileName), "utf-8");
+  } else {
+    apiKey = mbConfig.apiKeySource;
   }
   return { allowUpdateAddress: false, ...mbConfig, apiKey };
 }
