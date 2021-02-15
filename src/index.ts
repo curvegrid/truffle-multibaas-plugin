@@ -78,7 +78,7 @@ export class Deployer {
     path: string,
     config?: AxiosRequestConfig
   ): Promise<any> {
-    let host = `${getHost(this.config.deploymentID)}/api/v0`;
+    let host = `${getHost(this.config.deploymentID, this.config.insecureOk)}/api/v0`;
     const response = await axios(`${host}${path}`, {
       // Augment the config with some options
       ...config,
@@ -372,7 +372,7 @@ export class Deployer {
     const linkedAddress = await this.linkContractToAddress(mbContract, address);
 
     // Final message.
-    const host = getHost(this.config.deploymentID);
+    const host = getHost(this.config.deploymentID, this.config.insecureOk);
     console.log(`MultiBaas: Contract "${mbContract.label} ${mbContract.version}" has successfully been deployed.
 - Visit the contract management page: ${host}/contracts/${mbContract.label}?version=${mbContract.version}
 - Visit the instance management page: ${host}/contracts/${mbContract.label}/${linkedAddress.label}`);

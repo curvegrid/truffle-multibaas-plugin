@@ -2,6 +2,7 @@
 import TruffleConfig from "@truffle/config";
 import { readFileSync } from "fs";
 import path from "path";
+import isURL from "validator/lib/isURL";
 
 // The deployer's key in the truffle config.
 const configKey = "multibaasDeployer";
@@ -11,10 +12,10 @@ const APIKeyFileName = "mb_plugin_api_file";
 
 /**
  * Holds the configuration to the plugin.
- *
  */
 interface BaseConfig {
   deploymentID: string;
+  insecureOk?: boolean;
   /**
    * Whether we can update addresses for labels. Takes a definitive boolean or a list of allowed networks.
    * This is a fairly destructive operation, so the default option is "false".
@@ -40,7 +41,7 @@ export interface Config extends BaseConfig {
 // Checks whether an object is a FileConfig.
 function isFileConfig(o: any): o is FileConfig {
   if (typeof o !== "object") return false;
-  if (!(o.apiKeySource === "env" || o.apiKeySource === "file")) return false;
+  if (!(o.apiKeySource === "env" || o.apiKeySource === "file" || typeof o.apiKeySource === "string")) return false;
   if (typeof o.deploymentID !== "string") return false;
   if ("allowUpdateAddress" in o) {
     const value = o.allowUpdateAddress;
@@ -69,8 +70,10 @@ export default function getConfig(): Config {
       throw new Error(`Environment variable ${APIKeyEnvKey} not found`);
     }
     apiKey = env;
-  } else {
+  } else if (mbConfig.apiKeySource === "file") {
     apiKey = readFileSync(path.join(process.cwd(), APIKeyFileName), "utf-8");
+  } else {
+    apiKey = mbConfig.apiKeySource;
   }
   return { allowUpdateAddress: false, ...mbConfig, apiKey };
 }
@@ -79,7 +82,23 @@ export default function getConfig(): Config {
  * Gets the host from the deployment ID.
  * @param deploymentID The deployment ID in the config.
  */
-export function getHost(deploymentID: string): string {
+export function getHost(deploymentID: string, insecureOk: boolean = false): string {
+  const validatorOptions = {
+    protocols: ["https"],
+    require_protocol: true,
+    require_tld: true,
+  };
+
+  if (insecureOk) {
+    // To support localhost
+    validatorOptions.require_tld = false;
+    validatorOptions.protocols.push("http");
+  }
+
+  if (isURL(deploymentID, validatorOptions)) {
+    return deploymentID;
+  }
+
   return deploymentID === "development"
     ? "http://localhost:8080"
     : `https://${deploymentID}.multibaas.com`;
