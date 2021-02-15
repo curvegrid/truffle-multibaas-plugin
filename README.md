@@ -2,7 +2,7 @@
 
 Integrate MultiBaas into your [Truffle Suite](https://github.com/trufflesuite/truffle) workflow!
 
-![MultiBaas Truffle plugin architecture](truffle-multibaas-plugin-architecture.png)
+![MultiBaas Truffle plugin architecture](.images/truffle-multibaas-plugin-architecture.png)
 
 MultiBaas is blockchain middleware that makes it fast and easy to develop, deploy, and operate on the Ethereum and OmiseGO blockchain platforms. This plugin makes it easy to deploy contracts to MultiBaas from within your existing Truffle workflow. Your DApp can then use the MultiBaas REST API to interact with smart contracts.
 
@@ -44,12 +44,17 @@ There are two API keys you need to prepare in your environment variables:
 - `MB_PLUGIN_API_KEY`: The API key, you can create one in `Account > API Keys` from the MultiBaas dashboard.
   An alternative to using this environment variable is to write a `mb_plugin_api_key` file.
 
-For example, in the terminal where you will run `truffle deploy <network>`, you would first need to execute the following two commands
+For example, in the terminal where you will run `truffle migrate`, you would first need to execute the following two commands
+
 ```sh
 export MB_PLUGIN_WEB3_KEY=<MultiBaas API Key with Web3 permissions>
 
 export MB_PLUGIN_API_KEY=<MultiBaas API Key with Blockchain Endpoint permissions>
 ```
+
+_Note that `MB_PLUGIN_API_KEY` must have `Login`, `Operator Edit`, and `Blockchain API` roles_ so you can simply add a group `Administrators` when you create it in MultiBaas.
+
+![API Keys](.images/api-keys.png)
 
 Update your `truffle-config.js` as follows:
 
@@ -80,6 +85,8 @@ module.exports = {
 };
 ```
 
+_Note that your MultiBaas deployment (`[MultiBaasDeploymentID].multibaas.com`) must be using the same `network` and `network_id` with HDWalletProvider settings above_
+
 For cases where MultiBaas is proxying the connection to the blockchain, for example with the Curvegrid Test Network (Curvenet), use the `truffle-multibaas-plugin` network provider directly in `truffle-config.js`:
 
 ```js
@@ -109,6 +116,8 @@ module.exports = {
   },
 };
 ```
+
+_Note that if you set MultiBaasDeploymentID to `development`, a host of MultiBaas APIs will be `http://localhost:8080` not `https://[MultiBaasDeploymentID].multibaas.com`_
 
 ### Writing a Migration File
 
