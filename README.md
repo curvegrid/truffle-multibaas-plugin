@@ -85,7 +85,7 @@ module.exports = {
 };
 ```
 
-_Note that your MultiBaas deployment (`[MultiBaasDeploymentID].multibaas.com`) must be using `the same network and network_id` with HDWalletProvider settings above_
+_Note that your MultiBaas deployment (`[MultiBaasDeploymentID].multibaas.com`) must be using the same `network` and `network_id` with HDWalletProvider settings above_
 
 For cases where MultiBaas is proxying the connection to the blockchain, for example with the Curvegrid Test Network (Curvenet), use the `truffle-multibaas-plugin` network provider directly in `truffle-config.js`:
 
